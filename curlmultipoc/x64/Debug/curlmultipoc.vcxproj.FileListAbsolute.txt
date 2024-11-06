@@ -1,3 +1,0 @@
-c:\HPE\sandbox\curlmultipoc\x64\Debug\libcurl-d.dll
-c:\HPE\sandbox\curlmultipoc\x64\Debug\zlibd1.dll
-c:\HPE\sandbox\curlmultipoc\curlmultipoc\x64\Debug\curlmult.7714787B.Up2Date

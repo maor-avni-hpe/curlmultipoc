@@ -94,22 +94,6 @@ int main(int argc, char *argv[])
 
     CURLM *multi_handle = curl_multi_init();
 
-    // for (int i = 0; i < numConnections; ++i)
-    // {
-    //     long start = i * chunkSize;
-    //     long end = (i + 1) * chunkSize - 1;
-    //     if (end >= fileSize) end = fileSize - 1;
-    //
-    //     handles[i] = curl_easy_init();
-    //     std::string range = std::to_string(start) + "-" + std::to_string(end);
-    //     curl_easy_setopt(handles[i], CURLOPT_URL, url.c_str());
-    //     curl_easy_setopt(handles[i], CURLOPT_WRITEFUNCTION, WriteCallback);
-    //     curl_easy_setopt(handles[i], CURLOPT_WRITEDATA, &chunks[i]);
-    //     curl_easy_setopt(handles[i], CURLOPT_RANGE, range.c_str());
-    //
-    //     curl_multi_add_handle(multi_handle, handles[i]);
-    // }
-
     int still_running = 0;
     do
     {
