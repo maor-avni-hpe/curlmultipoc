@@ -31,6 +31,6 @@
 *.out
 *.app
 
-.vs\*
-curlmultipoc\*
-x64\*
+.vs
+curlmultipoc
+x64
