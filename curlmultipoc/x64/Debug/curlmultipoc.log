@@ -1,0 +1,5 @@
+﻿  curlmultipoc.cpp
+C:\HPE\sandbox\curlmultipoc\curlmultipoc.cpp(121,24): warning C4267: 'initializing': conversion from 'size_t' to 'long', possible loss of data
+C:\HPE\sandbox\curlmultipoc\curlmultipoc.cpp(122,22): warning C4267: 'initializing': conversion from 'size_t' to 'long', possible loss of data
+C:\HPE\sandbox\curlmultipoc\curlmultipoc.cpp(123,49): warning C4244: '=': conversion from 'double' to 'long', possible loss of data
+  curlmultipoc.vcxproj -> C:\HPE\sandbox\curlmultipoc\x64\Debug\curlmultipoc.exe

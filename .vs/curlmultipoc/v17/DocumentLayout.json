@@ -1,0 +1,57 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\HPE\\sandbox\\curlmultipoc\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{102E3F5A-EABB-4290-B14A-30CAB7199EB9}|curlmultipoc.vcxproj|C:\\HPE\\sandbox\\curlmultipoc\\curlmultipoc.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{102E3F5A-EABB-4290-B14A-30CAB7199EB9}|curlmultipoc.vcxproj|solutionrelative:curlmultipoc.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:131:0:{13b12e3e-c1b4-4539-9371-4fe9a0d523fc}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{13b12e3e-c1b4-4539-9371-4fe9a0d523fc}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d84ee353-0bef-5a41-a649-8f89aca5d84d}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "curlmultipoc.cpp",
+              "DocumentMoniker": "C:\\HPE\\sandbox\\curlmultipoc\\curlmultipoc.cpp",
+              "RelativeDocumentMoniker": "curlmultipoc.cpp",
+              "ToolTip": "C:\\HPE\\sandbox\\curlmultipoc\\curlmultipoc.cpp",
+              "RelativeToolTip": "curlmultipoc.cpp",
+              "ViewState": "AgIAAFsAAAAAAAAAAAAowG4AAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-09-22T14:17:44.334Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

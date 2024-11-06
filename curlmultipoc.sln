@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35312.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "curlmultipoc", "curlmultipoc.vcxproj", "{102E3F5A-EABB-4290-B14A-30CAB7199EB9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{102E3F5A-EABB-4290-B14A-30CAB7199EB9}.Debug|x64.ActiveCfg = Debug|x64
+		{102E3F5A-EABB-4290-B14A-30CAB7199EB9}.Debug|x64.Build.0 = Debug|x64
+		{102E3F5A-EABB-4290-B14A-30CAB7199EB9}.Debug|x86.ActiveCfg = Debug|Win32
+		{102E3F5A-EABB-4290-B14A-30CAB7199EB9}.Debug|x86.Build.0 = Debug|Win32
+		{102E3F5A-EABB-4290-B14A-30CAB7199EB9}.Release|x64.ActiveCfg = Release|x64
+		{102E3F5A-EABB-4290-B14A-30CAB7199EB9}.Release|x64.Build.0 = Release|x64
+		{102E3F5A-EABB-4290-B14A-30CAB7199EB9}.Release|x86.ActiveCfg = Release|Win32
+		{102E3F5A-EABB-4290-B14A-30CAB7199EB9}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7BED13C0-E291-454E-8493-F5E25C1BBD65}
+	EndGlobalSection
+EndGlobal
