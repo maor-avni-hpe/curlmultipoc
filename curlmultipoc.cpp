@@ -5,6 +5,7 @@
 #include <list>
 #include <set>
 #include <string>
+#include <thread>
 #include <vector>
 #include <curl/curl.h>
 
@@ -18,8 +19,9 @@ size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *userp)
 {
     size_t totalSize = size * nmemb;
     Chunk *chunk = (Chunk *)userp;
-    chunk->data.append((char *)contents, totalSize);
+    // chunk->data.append((char *)contents, totalSize);
     chunk->size += totalSize;
+    // sleep for 0.1ms
     return totalSize;
 }
 
@@ -36,6 +38,7 @@ CURL* createCurlHandle(long start, long end, Chunk* chunk, std::string url)
         curl_easy_setopt(curl, CURLOPT_RANGE, range.c_str());
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, chunk);
+        curl_easy_setopt(curl, CURLOPT_BUFFERSIZE, 128L * 1024L);
     }
     return curl;
     
@@ -57,7 +60,7 @@ int main(int argc, char *argv[])
     curl_global_init(CURL_GLOBAL_DEFAULT);
 
     // Get the total size of the file
-    CURL *curl = curl_easy_init();
+    CURL* curl = curl_easy_init();
     double fileSize = 0.0;
     if (curl)
     {
@@ -68,6 +71,7 @@ int main(int argc, char *argv[])
         curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
         curl_easy_setopt(curl, CURLOPT_MAXREDIRS, 3L);
         curl_easy_setopt(curl, CURLOPT_FAILONERROR, 1L);
+        curl_easy_setopt(curl, CURLOPT_BUFFERSIZE, 128L*1024L);
 
         CURLcode res = curl_easy_perform(curl);
         if (res == CURLE_OK)
@@ -83,7 +87,7 @@ int main(int argc, char *argv[])
         curl_easy_cleanup(curl);
     }
 
-    auto numOfChunks = (long)fileSize / chunkSize;
+    auto numOfChunks = fileSize / chunkSize;
     if ((long)fileSize % chunkSize != 0)
     {
         numOfChunks++;
@@ -94,7 +98,16 @@ int main(int argc, char *argv[])
 
     CURLM *multi_handle = curl_multi_init();
 
+    // VRA options:
+    // curl_multi_setopt(multi_handle, CURLMOPT_MAXCONNECTS, 0);
+    // curl_multi_setopt(multi_handle, CURLMOPT_MAX_TOTAL_CONNECTIONS, numConnections);
+
+    // measure time taken to download
+    clock_t start, end;
+    start = clock();
+
     int still_running = 0;
+    int maxHandles = 0;
     do
     {
         // Add new connections
@@ -102,8 +115,10 @@ int main(int argc, char *argv[])
         {
             std::cout << "downloading chunk " << chunks.size() << "/" << numOfChunks << std::endl;
             // Create a new connection
-            long start = chunks.size() * chunkSize;
-            long end = (chunks.size() + 1) * chunkSize - 1;
+            // long start = chunks.size() * chunkSize;
+            // long end = (chunks.size() + 1) * chunkSize - 1;
+            long start = 0;
+            long end = chunkSize - 1;
             if (end >= fileSize) end = fileSize - 1;
 
             Chunk chunk;
@@ -111,6 +126,10 @@ int main(int argc, char *argv[])
             handles.insert(handle);
             curl_multi_add_handle(multi_handle, handle);
             chunks.push_back(chunk);
+        }
+        if (handles.size() > maxHandles)
+        {
+            maxHandles = handles.size();
         }
 
         // Perform connections
@@ -122,6 +141,7 @@ int main(int argc, char *argv[])
             mc = curl_multi_poll(multi_handle, NULL, 0, 1000, NULL);
         }
 
+        int handlesBeforeClean = handles.size();
         while (CURLMsg* msg = curl_multi_info_read(multi_handle, &still_running))
         {
             if (msg->msg == CURLMSG_DONE)
@@ -138,8 +158,20 @@ int main(int argc, char *argv[])
                 curl_easy_cleanup(handle);
             }
         }
+
+        int handlesAfterClean = handles.size();
+        // print handles before clean, after clean, and max on one line, but only if there isn't any change from previous iteration.
+        // std::cout << "Handles before clean: " << handlesBeforeClean << " Handles after clean: " << handlesAfterClean << " Max handles: " << maxHandles << std::endl;
     }
+
     while (!(!still_running && handles.empty() && chunks.size() >= numOfChunks ));
+    end = clock();
+    double time_taken = double(end - start) / double(CLOCKS_PER_SEC);
+    std::cout << "Time taken to download: " << time_taken << " seconds" << std::endl;
+    // calculate download speed
+    double downloadSpeed = (fileSize / 1024) / time_taken;
+    std::cout << "Download speed: " << downloadSpeed << " KB/s" << std::endl;
+
 
     curl_multi_cleanup(multi_handle);
     curl_global_cleanup();

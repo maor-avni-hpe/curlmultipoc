@@ -1,7 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LocalDebuggerCommandArguments>https://debian.interhost.co.il/debian/dists/Debian12.7/ChangeLog 1 10</LocalDebuggerCommandArguments>
-    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <LocalDebuggerCommandArguments>ftp://maor:1234@10.0.0.10/user/Videos/Music/Eric.Clapton.-.Slowhand.at.70/Eric.Clapton.-.Slowhand.At.70-2.mkv 5 250</LocalDebuggerCommandArguments>
+    <DebuggerFlavor>WindowsRemoteDebugger</DebuggerFlavor>
+    <RemoteDebuggerCommand>c:\curl\curlmultipoc.exe</RemoteDebuggerCommand>
+    <RemoteDebuggerCommandArguments>https://debian.co.il/debian-cd//12.7.0-live/amd64/iso-hybrid/debian-live-12.7.0-amd64-standard.iso 1 10</RemoteDebuggerCommandArguments>
+    <RemoteDebuggerWorkingDirectory>c:\curl</RemoteDebuggerWorkingDirectory>
+    <RemoteDebuggerServerName>10.179.68.30</RemoteDebuggerServerName>
+    <DeploymentDirectory>c:\curl</DeploymentDirectory>
+    <RemoteDebuggerDeployCppRuntime>true</RemoteDebuggerDeployCppRuntime>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <DebuggerFlavor>WindowsRemoteDebugger</DebuggerFlavor>
   </PropertyGroup>
 </Project>
