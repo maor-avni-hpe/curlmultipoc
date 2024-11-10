@@ -100,11 +100,12 @@ int main(int argc, char *argv[])
 
     // VRA options:
     // curl_multi_setopt(multi_handle, CURLMOPT_MAXCONNECTS, 0);
-    // curl_multi_setopt(multi_handle, CURLMOPT_MAX_TOTAL_CONNECTIONS, numConnections);
+    // curl_multi_setopt(multi_handle, CURLMOPT_MAX_TOTAL_CONNECTIONS, 1);
+    // curl_multi_setopt(multi_handle, CURLMOPT_PIPELINING, 0L);
 
     // measure time taken to download
     clock_t start, end;
-    start = clock();
+    start = clock();    
 
     int still_running = 0;
     int maxHandles = 0;
