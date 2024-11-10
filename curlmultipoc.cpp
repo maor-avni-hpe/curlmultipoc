@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
     }
 
     std::string url = argv[1];
-    long chunkSize = std::stol(argv[2]) * 1024 * 1024;
+    long chunkSize = std::stol(argv[2]) * 1024;
     int numConnections = std::stoi(argv[3]);
 
     // Initialize CURL
