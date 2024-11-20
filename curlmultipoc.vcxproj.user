@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LocalDebuggerCommandArguments>ftp://maor:1234@10.0.0.10/user/Videos/Music/Eric.Clapton.-.Slowhand.at.70/Eric.Clapton.-.Slowhand.At.70-2.mkv 5 250</LocalDebuggerCommandArguments>
-    <DebuggerFlavor>WindowsRemoteDebugger</DebuggerFlavor>
+    <LocalDebuggerCommandArguments>"https://curlteststorage.blob.core.windows.net/curltest/Rocky-9.4-x86_64-dvd.iso?sv=2023-01-03&amp;st=2024-11-17T13%3A30%3A35Z&amp;se=2025-11-18T13%3A30%3A00Z&amp;sr=b&amp;sp=r&amp;sig=t5wLIlbVP503dsdlnL0aiVcsHRZBF1EZYkkbKDrvogU%3D" 128 5 10</LocalDebuggerCommandArguments>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
     <RemoteDebuggerCommand>c:\curl\curlmultipoc.exe</RemoteDebuggerCommand>
-    <RemoteDebuggerCommandArguments>https://debian.co.il/debian-cd//12.7.0-live/amd64/iso-hybrid/debian-live-12.7.0-amd64-standard.iso 1 10</RemoteDebuggerCommandArguments>
+    <RemoteDebuggerCommandArguments>"https://curlteststorage.blob.core.windows.net/curltest/Rocky-9.4-x86_64-dvd.iso?sv=2023-01-03&amp;st=2024-11-17T13%3A25%3A30Z&amp;se=2025-11-18T13%3A25%3A00Z&amp;sip=10.0.0.0-10.244.244.244&amp;sr=b&amp;sp=r&amp;sig=CsuODrsyrCnrRGzApTQc%2FHIZafTwg29oc4j0qLIYdUg%3D" 128 10</RemoteDebuggerCommandArguments>
     <RemoteDebuggerWorkingDirectory>c:\curl</RemoteDebuggerWorkingDirectory>
     <RemoteDebuggerServerName>10.179.68.30</RemoteDebuggerServerName>
     <DeploymentDirectory>c:\curl</DeploymentDirectory>
@@ -12,5 +12,10 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <DebuggerFlavor>WindowsRemoteDebugger</DebuggerFlavor>
+    <RemoteDebuggerCommand>c:\curlrelease\curlmultipoc.exe</RemoteDebuggerCommand>
+    <RemoteDebuggerWorkingDirectory>c:\curlrelease</RemoteDebuggerWorkingDirectory>
+    <RemoteDebuggerServerName>10.179.68.30</RemoteDebuggerServerName>
+    <DeploymentDirectory>c:\curlrelease</DeploymentDirectory>
+    <RemoteDebuggerDeployDebugCppRuntime>true</RemoteDebuggerDeployDebugCppRuntime>
   </PropertyGroup>
 </Project>

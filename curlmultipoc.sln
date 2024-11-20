@@ -20,6 +20,7 @@ Global
 		{102E3F5A-EABB-4290-B14A-30CAB7199EB9}.Debug|x86.Build.0 = Debug|Win32
 		{102E3F5A-EABB-4290-B14A-30CAB7199EB9}.Release|x64.ActiveCfg = Release|x64
 		{102E3F5A-EABB-4290-B14A-30CAB7199EB9}.Release|x64.Build.0 = Release|x64
+		{102E3F5A-EABB-4290-B14A-30CAB7199EB9}.Release|x64.Deploy.0 = Release|x64
 		{102E3F5A-EABB-4290-B14A-30CAB7199EB9}.Release|x86.ActiveCfg = Release|Win32
 		{102E3F5A-EABB-4290-B14A-30CAB7199EB9}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection

@@ -39,6 +39,8 @@ CURL* createCurlHandle(long start, long end, Chunk* chunk, std::string url)
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, chunk);
         curl_easy_setopt(curl, CURLOPT_BUFFERSIZE, 128L * 1024L);
+        curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 1L); // Enable SSL verification
+        curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 2L); // Verify the host
     }
     return curl;
     
@@ -46,15 +48,16 @@ CURL* createCurlHandle(long start, long end, Chunk* chunk, std::string url)
 
 int main(int argc, char *argv[])
 {
-    if (argc != 4)
+    if (argc != 5)
     {
-        std::cerr << "Usage: " << argv[0] << " <URL> <Chunk Size> <Number of Concurrent Connections>" << std::endl;
+        std::cerr << "Usage: " << argv[0] << " <URL> <Chunk Size> <Total GB> <Number of Concurrent Connections>" << std::endl;
         return 1;
     }
 
     std::string url = argv[1];
     long chunkSize = std::stol(argv[2]) * 1024;
-    int numConnections = std::stoi(argv[3]);
+    long totalGB = std::stol(argv[3]);
+    int numConnections = std::stoi(argv[4]);
 
     // Initialize CURL
     curl_global_init(CURL_GLOBAL_DEFAULT);
@@ -72,6 +75,8 @@ int main(int argc, char *argv[])
         curl_easy_setopt(curl, CURLOPT_MAXREDIRS, 3L);
         curl_easy_setopt(curl, CURLOPT_FAILONERROR, 1L);
         curl_easy_setopt(curl, CURLOPT_BUFFERSIZE, 128L*1024L);
+        curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L); // Enable SSL verification
+        curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 0L); // Verify the host
 
         CURLcode res = curl_easy_perform(curl);
         if (res == CURLE_OK)
@@ -80,21 +85,24 @@ int main(int argc, char *argv[])
         }
         else
         {
-            std::cerr << "Failed to get file size: " << curl_easy_strerror(res) << std::endl;
+            // get the http status code
+            long http_code = 0;
+            curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
+            std::cerr << "Failed to get file size: " << curl_easy_strerror(res) << " HTTP code: " << http_code << std::endl;
             return 1;
         }
 
         curl_easy_cleanup(curl);
     }
 
-    auto numOfChunks = fileSize / chunkSize;
-    if ((long)fileSize % chunkSize != 0)
-    {
-        numOfChunks++;
-    }
+    auto numOfChunks = (__int64)totalGB*1024*1024*1024 / chunkSize;
+    // if ((long)fileSize % chunkSize != 0)
+    // {
+    //     numOfChunks++;
+    // }
     std::vector<Chunk> chunks;
     std::set<CURL *> handles;
-    std::cout << handles.size() << std::endl;
+    std::cout << "chunks: " << numOfChunks << std::endl;
 
     CURLM *multi_handle = curl_multi_init();
 
@@ -109,12 +117,13 @@ int main(int argc, char *argv[])
 
     int still_running = 0;
     int maxHandles = 0;
+    int maxPolledFd = 0;
     do
     {
         // Add new connections
         while (handles.size() < numConnections && chunks.size() < numOfChunks)
         {
-            std::cout << "downloading chunk " << chunks.size() << "/" << numOfChunks << std::endl;
+            // std::cout << "downloading chunk " << chunks.size() << "/" << numOfChunks << std::endl;
             // Create a new connection
             // long start = chunks.size() * chunkSize;
             // long end = (chunks.size() + 1) * chunkSize - 1;
@@ -137,9 +146,15 @@ int main(int argc, char *argv[])
         CURLMcode mc = curl_multi_perform(multi_handle, &still_running);
 
         // Wait for activity, timeout or "nothing"
+        int currentPolledFd = 0;
         if (still_running)
         {
-            mc = curl_multi_poll(multi_handle, NULL, 0, 1000, NULL);
+            // mc = curl_multi_poll(multi_handle, NULL, 0, 1000, &currentPolledFd);
+            mc = curl_multi_poll(multi_handle, NULL, 0, 1000, nullptr);
+            if (currentPolledFd > maxPolledFd)
+            {
+                maxPolledFd = currentPolledFd;
+            }
         }
 
         int handlesBeforeClean = handles.size();
@@ -147,6 +162,7 @@ int main(int argc, char *argv[])
         {
             if (msg->msg == CURLMSG_DONE)
             {
+                // std::cout << "http request done" << std::endl;
                 CURL* handle = msg->easy_handle;
                 CURLcode result = msg->data.result;
                 if (result != CURLE_OK)
@@ -172,6 +188,7 @@ int main(int argc, char *argv[])
     // calculate download speed
     double downloadSpeed = (fileSize / 1024) / time_taken;
     std::cout << "Download speed: " << downloadSpeed << " KB/s" << std::endl;
+    std::cout << "max polled fd: " << maxPolledFd << std::endl;
 
 
     curl_multi_cleanup(multi_handle);
