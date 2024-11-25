@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LocalDebuggerCommandArguments>"https://curlteststorage.blob.core.windows.net/curltest/Rocky-9.4-x86_64-dvd.iso?sv=2023-01-03&amp;st=2024-11-17T13%3A30%3A35Z&amp;se=2025-11-18T13%3A30%3A00Z&amp;sr=b&amp;sp=r&amp;sig=t5wLIlbVP503dsdlnL0aiVcsHRZBF1EZYkkbKDrvogU%3D" 128 5 10</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>http://curlteststorage.blob.core.windows.net/curltest/Rocky-9.4-x86_64-dvd.iso 128 1 0 50</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
     <RemoteDebuggerCommand>c:\curl\curlmultipoc.exe</RemoteDebuggerCommand>
     <RemoteDebuggerCommandArguments>"https://curlteststorage.blob.core.windows.net/curltest/Rocky-9.4-x86_64-dvd.iso?sv=2023-01-03&amp;st=2024-11-17T13%3A25%3A30Z&amp;se=2025-11-18T13%3A25%3A00Z&amp;sip=10.0.0.0-10.244.244.244&amp;sr=b&amp;sp=r&amp;sig=CsuODrsyrCnrRGzApTQc%2FHIZafTwg29oc4j0qLIYdUg%3D" 128 10</RemoteDebuggerCommandArguments>
@@ -17,5 +17,6 @@
     <RemoteDebuggerServerName>10.179.68.30</RemoteDebuggerServerName>
     <DeploymentDirectory>c:\curlrelease</DeploymentDirectory>
     <RemoteDebuggerDeployDebugCppRuntime>true</RemoteDebuggerDeployDebugCppRuntime>
+    <LocalDebuggerCommandArguments>http://curlteststorage.blob.core.windows.net/curltest/Rocky-9.4-x86_64-dvd.iso 128 1 100 100</LocalDebuggerCommandArguments>
   </PropertyGroup>
 </Project>
